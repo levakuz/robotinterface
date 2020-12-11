@@ -5,6 +5,7 @@ import socketReducer from './socketReducer';
 import rfidReducer from './rfidReducer';
 import robotsReducer from './robotsReducer';
 import checkedItemsReducer from './checkedItemsReducer';
+import startpointReducer from './startPointReducer';
 
 
 export default combineReducers({
@@ -13,5 +14,6 @@ export default combineReducers({
   socketReducer,
   rfidReducer,
   robotsReducer,
-  checkedItemsReducer
+  checkedItemsReducer,
+  startpointReducer
 });

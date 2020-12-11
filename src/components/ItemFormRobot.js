@@ -18,20 +18,20 @@ class ItemForm extends Component {
             checked: false
         }
         // this.save = this.save.bind(this)
-        this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(e) {
         let id = e.target.id; 
-        let robot = this.getRobot.value;
-        if (robot == 0) {
+        let robot = this.props.robot;
+        console.log(this.props.robot)
+        if (robot === 0) {
             alert('не выбран робот')
         } else {
 
             if (this.state.checked === false){
                 let id = e.target.id; 
-                let robot = this.getRobot.value;
+                let robot = this.props.robot;
                 let data = {
                     id: id,
                     robot: robot
@@ -46,15 +46,11 @@ class ItemForm extends Component {
 
     }
 
-    handleChange() {
-        let robot = this.getRobot.value;
-        this.props.sendRobotID(robot);
-    }
 
 
     render(){
         return(
-
+        
         <Card body className="text-center">
 
             <Form>
@@ -62,19 +58,6 @@ class ItemForm extends Component {
             <Form.Group>
                 <p>Заказ: {this.props.item.order}</p>
 
-            </Form.Group>
-
-            <Form.Group>
-                <Form.Label>Выбрать робота</Form.Label>
-                <Form.Control as="select" ref={input => (this.getRobot = input)} onChange={this.handleChange}>
-                    <option selected disabled value={0}>ID робота</option>
-                    {/* <option value={1} >1 robot</option>
-                    <option value={2}>2 robot</option> */}
-                    {this.props.robots.map(robot => (
-                        <option value={robot.robot_id}>{robot.robot_id}</option>
-                        )
-                    )}
-                </Form.Control>
             </Form.Group>
             </Form>
 
@@ -100,9 +83,7 @@ const mapDispatchToProps = dispatch => ({
     removeFromItems: id => {
         dispatch(removeFromItems(id))
     },
-    sendRobotID: id => {
-        dispatch(sendData(id,'set_robot_status'));
-    },
+
 
 });
 

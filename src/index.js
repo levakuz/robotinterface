@@ -27,6 +27,9 @@ socket.on('cashboxerrors', state =>
 socket.on('UPDATE_ORDERS', state =>{
   store.dispatch({type: 'UPDATE_ORDERS', state})}
 );
+socket.on('ROBOT_ON_START_POINT', state =>{
+  store.dispatch({type: 'ROBOT_ON_START_POINT', state})}
+);
 
 ReactDOM.render(
   <Provider store={store}>
