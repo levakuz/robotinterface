@@ -44,51 +44,65 @@ class Orders extends Component {
     render(){
         let orders3 = this.props.list.filter(item => item.status === '3'
         );
-        let start_point = this.state.start_point
         console.log("here")
-        console.log(start_point)
-        return(
-        <div className='container'>
-            <br/>
-            <h5>Выберите робота</h5>
-            <div className='input'>
-                <Form.Control as="select" ref={input => (this.getRobot = input)} onChange={this.handleChange} >
-                    {console.log(this.props.robots)}
-                    <option selected disabled value={0}>ID робота</option>
-                    {/* <option value={1} >1 robot</option>
-                    <option value={2}>2 robot</option> */}
-                    {this.props.robots.map(robot => (
-                        <option value={robot.robot_id}>{robot.robot_id}</option>
-                        )
-                    )}
-                </Form.Control>
-            </div>
-           
-           <div>
-            
+        console.log(this.props.start_point)
         
-            <h5>Готовые заказы</h5>
-
-
-            <div className='row'>
-                {orders3.map(item => 
-                <div className='col-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mb-3'>
-                    <ItemForm item={item} robot={(this.state.robot) ? this.state.robot : []}/> 
+        if (this.props.start_point == "True") {
+            return(
+                <div className='container'>
+                    <br/>
+                    <h5>Выберите робота</h5>
+                    <div className='input'>
+                        <Form.Control as="select" ref={input => (this.getRobot = input)} onChange={this.handleChange} >
+                            {console.log(this.props.robots)}
+                            <option selected disabled value={0}>ID робота</option>
+                            {/* <option value={1} >1 robot</option>
+                            <option value={2}>2 robot</option> */}
+                            {this.props.robots.map(robot => (
+                                <option value={robot.robot_id}>{robot.robot_id}</option>
+                                )
+                            )}
+                        </Form.Control>
+                    </div>
+                   
+                   <div>
                     
-                </div>)}
-            </div>
-            <div className='row justify-content-center'   >
                 
-                <Button onClick={this.save} href="/qr">Отправить</Button>
+                    <h5>Готовые заказы</h5>
+        
+        
+                    <div className='row'>
+                        {orders3.map(item => 
+                        <div className='col-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mb-3'>
+                            <ItemForm item={item} robot={(this.state.robot) ? this.state.robot : []}/> 
+                            
+                        </div>)}
+                    </div>
+                    <div className='row justify-content-center'   >
+                        
+                        <Button onClick={this.save} href="/qr">Отправить</Button>
+                    </div>
+                    </div> 
+                    <br/> 
+                </div>
+                );
+            
+        }
+        else{
+        return(
+            <div style={{backgroundColor:'#ff5a00', width:'100%', height:'100vh'}}>
+                <div style={{paddingTop:'20%'}}>
+                    <h1 align='center'>Приятного аппетита!</h1>
+                    <h2 align='center'>Спасибо, что воспользовались нашим сервисом!</h2>
+                </div>
             </div>
-            </div> 
-            <br/> 
-        </div>
-        );
+
+        );}
     }
 }
 
 const mapStateToProps = state => {
+    
     return{
         list: state.listReducer,
         start_point: state.startpointReducer,
@@ -110,6 +124,7 @@ const mapDispatchToProps = dispatch => ({
     sendRobotID: id => {
         dispatch(sendData(id,'set_robot_status'));
     },
+    
 });
 
 
